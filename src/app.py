@@ -31,7 +31,7 @@ def get_connection():
     return mysql.connector.connect(
         host='localhost',
         user='root',
-        password='password', # User must change this
+        password='root', # Password found!
         database='UniversityDB'
     )
 
