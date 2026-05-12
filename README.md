@@ -1,44 +1,76 @@
-# University Database Project
+# University Database Project 🎓
 
 ## Project Overview
-This project involves the design and implementation of a relational database for a university system. The database (`UniversityDB`) tracks departments, students, instructors, courses, and student enrollments.
+This project involves the design and implementation of a relational database for a university system. The database (`UniversityDB`) tracks **departments**, **students**, **instructors**, **courses**, and **student enrollments** with full CRUD (Create, Read, Update, Delete) operations through a modern web-based dashboard.
 
 ## Repository Structure
 
 ```
-├─ /README.md             ← This file
-├─ /report.docx           ← Written report (see report.md as well)
-├─ /presentation.pptx     ← Slide deck
-├─ /video_link.txt        ← Public YouTube/MS Stream URL
+├─ /README.md                ← This file
+├─ /report.md                ← Written report (markdown version)
+├─ /report.docx              ← Written report (Word document)
+├─ /presentation.pptx        ← Slide deck for video walkthrough
+├─ /video_link.txt           ← Public YouTube/MS Stream URL
 ├─ /sql/
-│    ├─ create_tables.sql ← DDL for schema creation
-│    ├─ load_data.sql     ← INSERT scripts (min 10 records/table)
-│    ├─ queries.sql       ← Sample retrieval/update queries
-│    └─ triggers.sql      ← Database triggers
-└─ /src/                  ← UI/application source code (Streamlit Web App)
+│    ├─ create_tables.sql    ← DDL for schema creation (5 tables)
+│    ├─ load_data.sql        ← INSERT scripts (10+ records/table)
+│    ├─ queries.sql          ← Sample retrieval & update queries
+│    └─ triggers.sql         ← Database triggers (grade validation)
+└─ /src/
+     └─ app.py               ← Streamlit Web App (Bonus UI)
 ```
+
+## Database Schema
+
+| Table | Description | Key Relationships |
+|-------|-------------|-------------------|
+| `departments` | Academic departments | — |
+| `students` | Student records | FK → `departments` |
+| `instructors` | Instructor records | FK → `departments` |
+| `courses` | Course catalog | FK → `instructors` |
+| `enrollments` | Student-course registrations & grades | FK → `students`, `courses` |
 
 ## How to Run
 
 ### 1. Database Setup
-1. Install [MySQL](https://www.mysql.com/) or a compatible SQL database server.
-2. Execute the SQL scripts in the `/sql/` directory in the following order:
-   - `create_tables.sql`
-   - `load_data.sql`
-   - `triggers.sql`
-   - `queries.sql` (to test and view results)
+1. Install [MySQL](https://www.mysql.com/) (or use XAMPP).
+2. Execute the SQL scripts in `/sql/` in this order:
+   ```
+   create_tables.sql → load_data.sql → triggers.sql → queries.sql
+   ```
 
 ### 2. Application UI (Bonus)
-The application provides a simple UI to browse and insert data into our database.
+The application provides a full-featured dashboard to browse, add, edit, and delete data.
 
-1. Ensure you have Python installed.
-2. Navigate to the `/src/` folder: `cd src`
-3. Install dependencies:
+1. Ensure Python is installed.
+2. Install dependencies:
    ```bash
-   pip install streamlit mysql-connector-python
+   pip install streamlit mysql-connector-python pandas
    ```
-4. Update your database configuration (username and password) in `app.py`.
-5. Run the application:
+3. Update your database credentials in `src/app.py` (default: `root`/`root`).
+4. Run the application:
    ```bash
-   streamlit run app.py
+   streamlit run src/app.py
    ```
+
+## Application Features
+
+| Page | View | Add | Edit | Delete |
+|------|------|-----|------|--------|
+| 📊 **Dashboard** | Stats, charts, recent enrollments | — | — | — |
+| 👥 **Students** | Table with search & filter | ✅ | ✅ | ✅ |
+| 👨‍🏫 **Instructors** | Cards with course count | ✅ | ✅ | ✅ |
+| 📚 **Courses** | Cards with enrollment count | ✅ | ✅ | ✅ |
+| 🏢 **Departments** | Cards with student/instructor stats | ✅ | ✅ | ✅ |
+| 📝 **Enrollments** | Table with semester filter | ✅ | ✅ (Grade) | ✅ |
+
+### Design Highlights
+- Premium dark theme with Inter font
+- Glassmorphic card layouts
+- Interactive bar charts (students per dept, avg grade per course)
+- Search & filter capabilities
+- Real-time data refresh after every operation
+
+---
+
+© 2026 🐱 برعاية تيم القطة المشمشية
